@@ -3,31 +3,51 @@ import { Droplets, Gauge, FlaskConical, Zap, Settings, Menu, X } from "lucide-re
 import { Led, Stamp } from "../ui-industrial/Primitives.jsx";
 
 const NAV = [
-  { label: "Dashboard", icon: Gauge, active: true },
-  { label: "Water Quality", icon: Droplets },
-  { label: "Treatment", icon: FlaskConical },
-  { label: "Energy", icon: Zap },
-  { label: "Settings", icon: Settings },
+  { id: "overview", label: "Dashboard", icon: Gauge },
+  { id: "water-quality", label: "Water Quality", icon: Droplets },
+  { id: "treatment", label: "Treatment", icon: FlaskConical },
+  { id: "energy", label: "Energy", icon: Zap },
+  { id: "settings", label: "Settings", icon: Settings },
 ];
 
-function NavList({ onPick }) {
+function NavList({ activeSection, onNavigate, onOpenSettings, onPickMobile }) {
   return (
     <nav className="flex flex-col gap-2">
-      {NAV.map((item) => (
-        <button
-          key={item.label}
-          type="button"
-          onClick={onPick}
-          disabled={!item.active}
-          className={`press flex min-h-12 w-full items-center gap-3 rounded-lg px-4 text-left ${
-            item.active ? "bg-chassis shadow-pressed" : "bg-panel shadow-card opacity-70"
-          }`}
-        >
-          <item.icon strokeWidth={1.5} size={18} className="shrink-0 text-ink-muted" />
-          <span className="stamp min-w-0 flex-1 truncate text-[0.7rem] text-ink">{item.label}</span>
-          {!item.active && <Stamp className="text-[0.55rem]">Soon</Stamp>}
-        </button>
-      ))}
+      {NAV.map((item) => {
+        const isActive = activeSection === item.id;
+        return (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => {
+              if (item.id === "settings") {
+                onOpenSettings();
+              } else {
+                onNavigate(item.id);
+              }
+              if (onPickMobile) onPickMobile();
+            }}
+            className={`press flex min-h-12 w-full items-center gap-3 rounded-lg px-4 text-left transition-all ${
+              isActive
+                ? "bg-chassis shadow-pressed"
+                : "bg-panel text-ink-muted shadow-card hover:text-ink"
+            }`}
+          >
+            <item.icon
+              strokeWidth={1.5}
+              size={18}
+              className={`shrink-0 ${isActive ? "text-accent" : "text-ink-muted"}`}
+            />
+            <span
+              className={`stamp min-w-0 flex-1 truncate text-[0.7rem] ${
+                isActive ? "font-bold text-ink" : "text-ink-muted"
+              }`}
+            >
+              {item.label}
+            </span>
+          </button>
+        );
+      })}
     </nav>
   );
 }
@@ -59,7 +79,7 @@ function Footer() {
   );
 }
 
-export function Sidebar() {
+export function Sidebar({ activeSection = "overview", onNavigate = () => {}, onOpenSettings = () => {} }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -68,7 +88,11 @@ export function Sidebar() {
       <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col justify-between bg-chassis p-6 lg:flex">
         <div className="flex flex-col gap-8">
           <Brand />
-          <NavList />
+          <NavList
+            activeSection={activeSection}
+            onNavigate={onNavigate}
+            onOpenSettings={onOpenSettings}
+          />
         </div>
         <Footer />
       </aside>
@@ -92,7 +116,12 @@ export function Sidebar() {
         </div>
         {open && (
           <div className="mt-3 flex flex-col gap-4 rounded-xl bg-panel p-4 shadow-card">
-            <NavList onPick={() => setOpen(false)} />
+            <NavList
+              activeSection={activeSection}
+              onNavigate={onNavigate}
+              onOpenSettings={onOpenSettings}
+              onPickMobile={() => setOpen(false)}
+            />
             <Footer />
           </div>
         )}
