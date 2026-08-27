@@ -7,10 +7,10 @@ export function TopBar({ deviceId, secondsAgo }) {
       <div className="flex min-w-0 items-center gap-3">
         <IconHousing icon={Radio} />
         <div className="min-w-0">
-          <h1 className="truncate text-lg font-extrabold tracking-tight text-ink sm:text-xl">
+          <h1 className="text-lg font-extrabold tracking-tight text-ink sm:text-xl">
             Monitoring Dashboard
           </h1>
-          <Stamp className="block truncate">{deviceId} · Portable Treatment Unit</Stamp>
+          <Stamp className="block">{deviceId} · Portable Treatment Unit</Stamp>
         </div>
       </div>
       <div className="flex shrink-0 flex-col items-end gap-2">
