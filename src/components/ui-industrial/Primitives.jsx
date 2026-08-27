@@ -63,7 +63,7 @@ export function Readout({ value, unit, className = "" }) {
     <div
       className={`flex items-baseline gap-1.5 rounded-lg bg-chassis px-4 py-3 shadow-recessed ${className}`}
     >
-      <span className="font-mono text-3xl font-700 tabular-nums text-ink" style={{ fontWeight: 700 }}>
+      <span className="font-mono text-3xl font-bold tabular-nums text-ink">
         {value}
       </span>
       <span className="stamp text-[0.65rem] text-ink-muted">{unit}</span>
