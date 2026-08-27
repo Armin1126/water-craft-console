@@ -21,13 +21,17 @@ export function TreatmentPipeline({ data }) {
         icon={FlaskConical}
       />
       <div className="rounded-2xl bg-panel p-6 shadow-card sm:p-8">
-        <div className="grid grid-cols-1 gap-5 md:flex md:items-start md:gap-0">
+        <div className="relative grid grid-cols-1 gap-5 md:flex md:items-start md:gap-0">
+          <span className="absolute left-[10%] right-[10%] top-6 hidden h-3 rounded-full bg-recessed shadow-recessed md:block" />
           {TREATMENT_STAGES.map((stage, i) => {
             const Icon = ICONS[stage];
             const active = i === activeIndex;
             const done = i < activeIndex;
             return (
-              <div key={stage} className="flex items-center gap-4 md:flex-1 md:flex-col md:gap-3">
+              <div
+                key={stage}
+                className="relative flex items-center gap-4 md:flex-1 md:flex-col md:gap-3"
+              >
                 <span
                   className={`grid h-14 w-14 shrink-0 place-items-center rounded-full transition-all duration-300 ${
                     active
@@ -50,9 +54,6 @@ export function TreatmentPipeline({ data }) {
                     {active ? "Running" : done ? "Complete" : "Queued"}
                   </Stamp>
                 </div>
-                {i < TREATMENT_STAGES.length - 1 && (
-                  <span className="hidden h-3 flex-1 rounded-full bg-recessed shadow-recessed md:block md:self-start md:mt-6" />
-                )}
               </div>
             );
           })}
