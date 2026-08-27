@@ -149,49 +149,49 @@
    =========================================================== */
 
 @theme {
-  --color-chassis: #e0e5ec;
-  --color-panel: #f0f2f5;
-  --color-recessed: #d1d9e6;
-  --color-ink: #2d3436;
-  --color-ink-muted: #4a5568;
-  --color-accent: #ff4757;
+  --color-chassis: #dde3ea;
+  --color-panel: #e6ebf1;
+  --color-recessed: #d3d9e1;
+  --color-ink: #243142;
+  --color-ink-muted: #67768a;
+  --color-accent: #e63946;
   --color-accent-foreground: #ffffff;
-  --color-edge-shadow: #babecc;
+  --color-edge-shadow: #c2cad4;
   --color-edge-highlight: #ffffff;
-  --color-edge-dark: #a3b1c6;
-  --color-tech: #2d3436;
-  --color-tech-alt: #2c3e50;
-  --color-tech-dim: #a8b2d1;
-  --color-ok: #22c55e;
-  --color-warn: #f59e0b;
+  --color-edge-dark: #b8c1cd;
+  --color-tech: #10151c;
+  --color-tech-alt: #1a2330;
+  --color-tech-dim: #5f7389;
+  --color-ok: #16a34a;
+  --color-warn: #d97706;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Roboto Mono", ui-monospace, monospace;
   --ease-mech: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @utility shadow-card {
-  box-shadow: 8px 8px 16px #babecc, -8px -8px 16px #ffffff;
+  box-shadow: 8px 8px 16px var(--color-edge-shadow), -8px -8px 16px var(--color-edge-highlight);
 }
 
 @utility shadow-floating {
   box-shadow:
-    12px 12px 24px #babecc,
-    -12px -12px 24px #ffffff,
-    inset 1px 1px 0 rgba(255, 255, 255, 0.5);
+    12px 12px 24px var(--color-edge-shadow),
+    -12px -12px 24px var(--color-edge-highlight),
+    inset 1px 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 @utility shadow-pressed {
-  box-shadow: inset 6px 6px 12px #babecc, inset -6px -6px 12px #ffffff;
+  box-shadow: inset 6px 6px 12px var(--color-edge-shadow), inset -6px -6px 12px var(--color-edge-highlight);
 }
 
 @utility shadow-recessed {
-  box-shadow: inset 4px 4px 8px #babecc, inset -4px -4px 8px #ffffff;
+  box-shadow: inset 4px 4px 8px var(--color-edge-shadow), inset -4px -4px 8px var(--color-edge-highlight);
 }
 
 @utility press {
   transition: all 200ms var(--ease-mech);
   &:active {
-    box-shadow: inset 6px 6px 12px #babecc, inset -6px -6px 12px #ffffff;
+    box-shadow: inset 6px 6px 12px var(--color-edge-shadow), inset -6px -6px 12px var(--color-edge-highlight);
     transform: translateY(2px);
   }
 }
@@ -201,9 +201,9 @@
   &:hover {
     transform: translateY(-0.25rem);
     box-shadow:
-      12px 12px 24px #babecc,
-      -12px -12px 24px #ffffff,
-      inset 1px 1px 0 rgba(255, 255, 255, 0.5);
+      12px 12px 24px var(--color-edge-shadow),
+      -12px -12px 24px var(--color-edge-highlight),
+      inset 1px 1px 0 rgba(255, 255, 255, 0.7);
   }
 }
 
@@ -224,8 +224,8 @@
     height: 7px;
     border-radius: 9999px;
     top: 12px;
-    background: radial-gradient(circle at 30% 30%, #ffffff 0%, #b9c0cc 60%, #93a0b5 100%);
-    box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.9), 1px 1px 2px #babecc;
+    background: radial-gradient(circle at 30% 30%, #f2f5f8 0%, #cdd4dd 60%, #aab3bf 100%);
+    box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.8), 1px 1px 2px var(--color-edge-dark);
   }
   &::before {
     left: 12px;
@@ -244,8 +244,8 @@
     pointer-events: none;
     background: repeating-linear-gradient(
       to bottom,
-      rgba(255, 255, 255, 0.05) 0px,
-      rgba(255, 255, 255, 0.05) 1px,
+      rgba(255, 255, 255, 0.04) 0px,
+      rgba(255, 255, 255, 0.04) 1px,
       transparent 1px,
       transparent 4px
     );
