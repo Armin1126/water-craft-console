@@ -14,11 +14,12 @@ const BASELINES = {
   pressure: { base: 2.4, drift: 0.1, min: 0.8, max: 4 },
 };
 
-const SCENARIO_OFFSETS = {
+/** Absolute target values per scenario; unlisted keys fall back to baseline. */
+const SCENARIO_TARGETS = {
   NOMINAL: {},
-  TURBID_INTAKE: { turbidity: 9.5, pressure: -0.35, flowRate: -1.1 },
-  HIGH_TDS: { tds: 620, conductivity: 780, pH: -0.6 },
-  LOW_BATTERY: {},
+  TURBID_INTAKE: { turbidity: 9.5, pressure: 2.05, flowRate: 3.1 },
+  HIGH_TDS: { tds: 620, conductivity: 980, pH: 6.35 },
+  LOW_BATTERY: { flowRate: 3.4 },
 };
 
 const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
@@ -50,11 +51,10 @@ export class MockDataProvider extends DataProvider {
   }
 
   #targets() {
-    const offs = SCENARIO_OFFSETS[this.scenario] || {};
+    const overrides = SCENARIO_TARGETS[this.scenario] || {};
     const t = {};
     for (const [k, spec] of Object.entries(BASELINES)) {
-      const off = offs[k];
-      t[k] = off === undefined ? spec.base : off > 5 || k === "tds" || k === "conductivity" || k === "turbidity" ? (off > spec.base ? off : spec.base + off) : spec.base + off;
+      t[k] = overrides[k] === undefined ? spec.base : overrides[k];
     }
     return t;
   }
